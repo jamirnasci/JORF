@@ -12,6 +12,8 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class SingleSequenceView extends JFrame {
 
@@ -23,48 +25,53 @@ public class SingleSequenceView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 635, 492);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel seqLengthLabel = new JLabel("Sequence length:");
-		seqLengthLabel.setFont(new Font("Courier New", Font.BOLD, 18));
-		seqLengthLabel.setBounds(10, 11, 207, 22);
+		seqLengthLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+		seqLengthLabel.setBounds(10, 11, 247, 22);
 		contentPane.add(seqLengthLabel);
 		
 		JLabel gcContentLabel = new JLabel("%GC:");
-		gcContentLabel.setFont(new Font("Courier New", Font.BOLD, 18));
-		gcContentLabel.setBounds(10, 44, 154, 14);
+		gcContentLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+		gcContentLabel.setBounds(10, 79, 154, 14);
 		contentPane.add(gcContentLabel);
 		
 		JLabel adenine = new JLabel("A:");
-		adenine.setFont(new Font("Courier New", Font.BOLD, 18));
-		adenine.setBounds(499, 15, 110, 14);
+		adenine.setVerticalAlignment(SwingConstants.TOP);
+		adenine.setFont(new Font("Consolas", Font.PLAIN, 15));
+		adenine.setBounds(450, 15, 159, 15);
 		contentPane.add(adenine);
 		
 		JLabel timine = new JLabel("T:");
-		timine.setFont(new Font("Courier New", Font.BOLD, 18));
-		timine.setBounds(499, 37, 110, 14);
+		timine.setVerticalAlignment(SwingConstants.TOP);
+		timine.setFont(new Font("Consolas", Font.PLAIN, 15));
+		timine.setBounds(450, 37, 159, 14);
 		contentPane.add(timine);
 		
 		JLabel cytosine = new JLabel("C:");
-		cytosine.setFont(new Font("Courier New", Font.BOLD, 18));
-		cytosine.setBounds(499, 58, 110, 14);
+		cytosine.setVerticalAlignment(SwingConstants.TOP);
+		cytosine.setFont(new Font("Consolas", Font.PLAIN, 15));
+		cytosine.setBounds(450, 58, 159, 14);
 		contentPane.add(cytosine);
 		
 		JLabel guanine = new JLabel("G:");
-		guanine.setFont(new Font("Courier New", Font.BOLD, 18));
-		guanine.setBounds(499, 80, 110, 14);
+		guanine.setVerticalAlignment(SwingConstants.TOP);
+		guanine.setFont(new Font("Consolas", Font.PLAIN, 15));
+		guanine.setBounds(450, 80, 159, 14);
 		contentPane.add(guanine);
 		
 		Sequence sequence = new Sequence();
 		String orfInSequence = seq.substring(start, end);
 		seqLengthLabel.setText(seqLengthLabel.getText() + orfInSequence.length());
-		guanine.setText(guanine.getText()   + sequence.count(orfInSequence, 'G'));
-		cytosine.setText(cytosine.getText() + sequence.count(orfInSequence, 'C'));
-		adenine.setText(adenine.getText()   + sequence.count(orfInSequence, 'A'));
-		timine.setText(timine.getText()     + sequence.count(orfInSequence, 'T'));
+		guanine.setText("Guanine:" + sequence.count(orfInSequence, 'G'));
+		cytosine.setText("Cytosine:" + sequence.count(orfInSequence, 'C'));
+		adenine.setText("Adenine:" + sequence.count(orfInSequence, 'A'));
+		timine.setText("Thymine:" + sequence.count(orfInSequence, 'T'));
 		gcContentLabel.setText(gcContentLabel.getText() + String.format("%.2f",  sequence.getGCContent(orfInSequence)));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -72,6 +79,8 @@ public class SingleSequenceView extends JFrame {
 		contentPane.add(scrollPane);
 		
 		JTextArea seqArea = new JTextArea();
+		seqArea.setForeground(new Color(0, 0, 160));
+		seqArea.setBackground(new Color(221, 221, 221));
 		seqArea.setEditable(false);
 		scrollPane.setViewportView(seqArea);
 		seqArea.setFont(new Font("Courier New", Font.PLAIN, 13));

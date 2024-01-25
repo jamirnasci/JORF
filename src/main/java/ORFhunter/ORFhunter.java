@@ -20,22 +20,25 @@ public class ORFhunter {
 		}
 		HomeForm.progressBar.setMaximum(starts.size());
 		
+		int frame = 0;
 		ArrayList<ORF> orfsFound = new ArrayList<ORF>();
 		for(Integer start : starts) {
-			for(int f = 0; f < 3; f++) {
-				for(int i = start + f; i < seq.length() - 3; i += 3) {
+			while(frame < 3) {
+				for(int i = start + frame; i < seq.length() - 3 && frame < 3; i += 3) {
 					String endCodon = seq.substring(i, i + 3);
 					if(endCodonsList.contains(endCodon)) {
 						int orfLength = (i - start) + 3;
 						if( orfLength > minOrfSize && orfLength % 3 == 0) {
-							ORF orf = new ORF(start, i + 3, f, orfLength);
+							ORF orf = new ORF(start, i + 3, frame + 1, orfLength);
+							System.out.println(frame);
 							orfsFound.add(orf);
-							break;
+							frame++;
 						}
 					}
 				}
+				frame++;
 			}
-			
+			frame = 0;
 			HomeForm.progressBar.setValue(HomeForm.progressBar.getValue() + 1);
 		}
 		
